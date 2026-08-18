@@ -1,69 +1,63 @@
 # Examples
 
-These examples demonstrate behavior, not mandatory wording.
+示例用于理解结构，不要机械复制措辞。
 
-## Example 1 — Rough Chinese idea → portable prompt
+## 1. 多参考图 → GPT Image
 
-Input:
+用户：图 1 是人物，图 2 是服装，图 3 是场景。生成一张写实电影剧照。
 
-> 一个女生坐在咖啡馆窗边，很有电影感，外面下雨。
+```text
+使用图 1 作为人物身份与面部外观的唯一参考；让人物穿上图 2 的整套服装，保留服装的剪裁、颜色与材质；把人物置于图 3 的场景中，采用图 3 的空间布局和夜间环境。
 
-Output:
+生成一张真实摄影质感的横幅电影剧照。人物位于画面左侧中景，身体微微转向右侧，视线投向街道深处，右侧保留环境留白。服装自然贴合图 1 的身体比例和姿势，褶皱、遮挡与接触关系真实。匹配图 3 的透视、湿润地面反射、冷色环境光和远处暖色店铺灯。
 
-### Final Prompt
+保持图 1 的面部结构、发型、肤色和人物比例，不改变图 2 的服装设计，不复制任何参考图水印、字幕或界面元素，不添加其他人物或文字。
+```
 
-A quiet cinematic photograph of a young woman sitting alone beside a cafe window on a rainy evening, turned slightly toward the glass with a calm, introspective expression. Medium shot at eye level, subject placed on the right third with negative space toward the rain-streaked window. Warm practical cafe light softly shapes her face while cool blue-gray street light enters from outside, creating restrained warm-cool separation. Natural skin texture, subtle fabric wrinkles, realistic reflections and droplets on the glass, softly layered city lights outside, low-saturation color grade, intimate and understated rather than glossy or theatrical.
+## 2. 参考视频动作 + 参考图主体 → Seedance 2.0
 
-## Example 2 — Midjourney
+用户：人物用图 1，动作和运镜参考视频 1，背景换成雨夜天台，10 秒。
 
-Input:
+```text
+10 秒，16:9，写实动作短片。图 1 是主角外观与服装的唯一参考；视频 1 只参考动作顺序、动作速度和相机轨迹，不参考原人物、原场景或原色彩。
 
-> Midjourney，做一个高端香水广告，黑色玻璃瓶，极简，16:9。
+第一帧从雨夜天台中景开始，主角保持图 1 的面部、发型、服装和身体比例。按照视频 1 的动作顺序完成整套动作：先稳定起势，随后快速向右转身并跨步，动作到达发力点时衣摆和湿发产生符合惯性的延迟摆动，脚落地溅起少量积水，最后自然收势并停在护栏前。相机严格沿用视频 1 的跟拍方向和速度变化，动作高潮短暂贴近，结尾稳定停住，不增加额外环绕或切镜。
 
-Output:
+冷色雨夜环境，远处城市灯光轻微虚化，地面反射与主角脚步同步变化。声音只有雨声、脚步和衣料摩擦声，与动作准确同步；无对白、无音乐。
 
-### Final Prompt
+全程保持主角身份、服装、身材比例和天台空间连续，不出现脸部漂移、服装变形、额外人物、突然换景或无原因的速度跳变。
+```
 
-luxury fragrance campaign, a single black glass perfume bottle centered on a low matte stone pedestal, precise silhouette and crisp label area, large negative space, minimal architectural studio set, controlled softbox highlight tracing the bottle edges, subtle reflected light revealing the glass thickness, charcoal and warm gray palette with one restrained amber accent, premium editorial product photography, clean shadow geometry, no decorative clutter --ar 16:9 --raw
+## 3. 参考图 → Seedream 5.0 局部编辑
 
-## Example 3 — Surgical edit
+用户：把产品背景换成浅灰摄影棚，产品不变。
 
-Input:
+```text
+仅替换图 1 的背景：改为干净的浅灰色无缝摄影棚背景和浅灰台面。保持产品本体、轮廓、比例、角度、位置、包装结构、Logo、标签文字、颜色和材质完全不变。添加与原图主光方向一致的柔和接触阴影和克制反射，使产品自然落在台面上。不要重新设计产品，不改写任何文字，不添加道具、水印或其他品牌元素。
+```
 
-> 把这张白天街拍改成雨夜，人物完全不要动。
+## 4. 参考视频 → 单张生图
 
-Output:
+用户：把视频里最有冲击力的一刻做成海报主视觉，GPT Image，不要文字。
 
-### Final Prompt
+```text
+根据视频 1 的动作高潮生成一张竖版海报主视觉：选择主体完成跃起转身、身体达到最高点且衣物仍沿旋转方向展开的决定性瞬间。保留视频 1 中主体的可见外观、服装、动作方向、场景结构、主光方向与色彩关系；用凝固的姿势、衣物惯性、少量方向性运动模糊和地面扬起的细小颗粒表现速度。
 
-Using the provided image as the base, change only the environment from daytime to a rainy night street. Keep the person exactly unchanged: same face, identity, body proportions, pose, clothing, hairstyle, position, crop, and camera perspective. Replace the daylight background with realistic wet pavement, restrained storefront and street lighting, and subtle rain. Add physically consistent cool ambient night light and soft practical-light reflections to the environment while preserving the subject's original form and detail; integrate only the minimum lighting shift needed to make the subject belong in the new night scene. Do not add people, change clothing, alter facial features, or modify the framing.
+低机位中远景，主体轮廓清晰，画面上方和左侧保留干净留白，背景透视与视频一致。真实摄影质感，动作解剖自然，接触和重心可信。不要表现镜头推进或多段时间，不添加其他人物、标题、Logo、水印或任何文字。
+```
 
-## Example 4 — Typography
+## 5. 文案 → Seedance 2.0 多镜头
 
-Input:
+用户：把“雨停后，孩子跑出屋子看见彩虹，叫妈妈来看”做成 8 秒视频。
 
-> 做一张爵士音乐节海报，标题必须是 “MIDNIGHT BLUE”，副标题 “TOKYO JAZZ WEEK 2026”。
+```text
+8 秒，16:9，温暖写实家庭短片，角色和住宅空间跨镜头一致。
 
-Output:
+0–3 秒：室内中景。雨声刚变小，孩子从窗边转头，看到窗外变亮，迅速跑向敞开的门。固定机位轻微向门口横移，脚步声和湿润环境声自然同步。
 
-### Final Prompt
+3–6 秒：从屋檐下跟拍孩子跑到院中停下，抬头看到雨后天空中的一道彩虹。衣服和头发随跑动自然摆动，水洼被踩出小幅飞溅，镜头缓慢推进到孩子仰望的侧脸。
 
-Vertical jazz festival poster with the exact headline "MIDNIGHT BLUE" dominating the upper third in a tall condensed sans-serif display type, and the exact subtitle "TOKYO JAZZ WEEK 2026" directly below in much smaller uppercase lettering. Deep midnight-blue field with a restrained cream and muted brass color system, abstract saxophone-like curves and geometric stage-light shapes forming a rhythmic asymmetrical composition, generous margins, sophisticated modernist editorial layout, subtle paper grain, strong typographic hierarchy, no additional text.
+6–8 秒：孩子回头朝屋内兴奋地喊：“妈妈，快来看彩虹！”镜头保持稳定，彩虹与孩子同时留在画面中。环境声为屋檐滴水、远处鸟鸣和孩子对白，无背景音乐。
 
-## Example 5 — Prompt diagnosis
-
-Input:
-
-> 为什么这个词不稳定：beautiful woman, cinematic, 8k, masterpiece, neon, bokeh, dramatic, realistic, Tokyo
-
-Diagnosis:
-
-- The subject has no action, identity, or placement.
-- "cinematic", "dramatic", and "beautiful" are outcomes rather than controllable instructions.
-- "neon" and "bokeh" are effects without a lighting or camera setup.
-- Tokyo is not defined as street, interior, era, weather, or visual role.
-- Quality tags consume prompt space without solving composition.
-
-Corrected prompt:
-
-A natural nighttime street portrait of a woman walking past a small Tokyo neighborhood restaurant after rain, medium shot at eye level, 50mm-like perspective, subject on the left third with warm lantern light from the storefront shaping one side of her face and cool ambient street light on the other. Wet asphalt carries restrained reflections, background signage is soft but readable as environmental texture rather than the focal point, natural skin and hair detail, low-saturation color grade, quiet documentary mood, realistic depth of field.
+不增加其他对白，不突然改变天气、服装、院落结构或时间，不使用慢动作和炫技转场。
+```

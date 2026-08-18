@@ -1,58 +1,60 @@
 # GPT Image Adapter
 
-Use for OpenAI image generation/editing models, especially GPT Image family.
+用于 GPT Image 系列的生图、参考图生图、图片编辑与多图合成。
 
-## Prompt dialect
+## 写法
 
-Prefer clear natural language with explicit relationships and constraints. Write like an art director giving a precise visual brief, not like a tag list.
+GPT Image 适合清楚的自然语言和短分段。复杂任务按以下顺序组织：
 
-Recommended order:
+1. 目标与用途；
+2. 场景 / 背景；
+3. 主体、行为与空间关系；
+4. 构图、光线、材质与视觉风格；
+5. 参考图分工；
+6. 文字与版式；
+7. Change / Preserve / Constraints。
 
-1. goal / image type;
-2. subject and action;
-3. environment and relationships;
-4. framing and composition;
-5. lighting and color;
-6. materials and visual finish;
-7. exact text/layout when needed;
-8. preservation rules for edits.
+不需要把 Prompt 写成标签串或固定 JSON。结构清楚比形式复杂更重要。
 
-## Strengths to exploit
+## 参考图
 
-- complex natural-language instructions;
-- image editing with explicit preservation;
-- text rendering when exact copy and hierarchy are specified;
-- multi-part scenes when relationships are described unambiguously;
-- high-fidelity use of image inputs when the host exposes them.
+多图输入时逐一说明：
 
-## Editing pattern
+```text
+图 1：主体与身份参考，只保留人物外观。
+图 2：场景与构图参考，只采用空间布局和机位。
+图 3：风格参考，只采用色彩、材质和光线处理。
+```
 
-Use direct, operational language:
+随后说明它们如何组合。不要使用“融合所有参考图”这类无边界指令。
 
-"Using the provided image, change X. Keep Y exactly unchanged. Preserve Z. Match the new lighting/reflections to the existing camera and perspective."
+## 编辑
 
-Do not restate the entire desired image as if generating from scratch when only one element changes.
+局部修改采用直接指令：
 
-## Text in image
+```text
+仅修改 <对象 / 区域>：<目标变化>。
+保持 <身份 / 几何 / 构图 / 文字 / 背景> 完全不变。
+新内容匹配原图的 <透视 / 比例 / 光线 / 阴影 / 反射 / 景深 / 颗粒>。
+不要添加 <未要求元素>，不要重新构图。
+```
 
-Quote exact copy and specify:
+每次迭代都重新写出关键 Preserve，不能只写“其他不变”而丢失核心锚点。
 
-- position;
-- hierarchy;
-- type category;
-- case;
-- approximate scale;
-- what other text must not appear.
+## 写实与风格
 
-## Negative constraints
+- 写实时明确 `photorealistic` 或“真实摄影”，再补真实皮肤、材料磨损、自然光线等少量可见证据。
+- 镜头和焦距用于控制画面观感，不承诺精确光学模拟。
+- 风格迁移写清“保留哪些风格特征”和“新主体是什么”，同时限制背景、构图与额外元素。
 
-Prefer positive, direct constraints inside the natural-language prompt:
+## 图中文字
 
-- "an empty background" rather than a long generic negative list;
-- "natural skin texture and anatomically plausible hands" rather than quality-tag spam.
+- 精确文案放在引号中；
+- 说明只出现一次；
+- 指定位置、层级、字型方向、颜色与对齐；
+- 明确“不得出现其他文字”；
+- 生僻品牌词可逐字母拼写。
 
-Use a separate negative section only if the user's interface explicitly supports one.
+## 输出建议
 
-## Output form
-
-Return one coherent natural-language prompt. Do not append Midjourney flags, Stable Diffusion weights, or invented API parameters.
+提示词本身只写模型执行所需内容。只有用户需要 API / 界面建议时，才补充确定存在的质量、尺寸或画幅选项；不要编造参数。

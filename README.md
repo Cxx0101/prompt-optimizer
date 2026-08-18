@@ -1,164 +1,87 @@
-# Image Prompt Optimizer
+# Prompt Optimizer
 
-A cross-agent Skill for turning rough visual ideas into production-ready image-generation or image-editing prompts.
+一个面向多模态参考素材的 Agent Skill：分析参考图、参考视频、音频、脚本、文案或粗略创意，并转换为可直接使用的图像 / 视频生成提示词。
 
-Designed for:
-
-- Claude Code
-- OpenAI Codex
-- Hermes Agent
-- other clients compatible with the Agent Skills open format
-
-## What it does
-
-- preserves the user's original creative intent;
-- builds an internal Universal Visual Brief;
-- upgrades composition, camera language, lighting, color, materials, and spatial relationships;
-- handles generation, image edits, references, character/product consistency, product advertising, posters, and typography;
-- compiles prompts into model-appropriate dialects instead of using one prompt format everywhere;
-- avoids generic prompt bloat and blind negative-prompt copying.
-
-Included adapters:
+支持模型：
 
 - GPT Image
-- Midjourney
-- FLUX
-- Gemini / Nano Banana
-- Stable Diffusion / SDXL / SD3.x
-- Ideogram
+- Seedream 5.0
+- Seedance 2.0
 
-## Package structure
+## 能做什么
+
+- 为每份参考素材分配清晰角色，例如主体、构图、风格、动作、运镜、节奏或声音；
+- 从参考图提取身份、产品、空间、光影、材质和版式锚点；
+- 按时间分析参考视频的动作链、镜头轨迹、剪辑节奏和声音事件；
+- 完成图 → 图、图 → 视频、视频 → 图、视频 → 视频以及脚本 / 文案 → 图或视频的跨模态转换；
+- 为图片或视频编辑明确 Change / Preserve / Integration / Constraints；
+- 根据 GPT Image、Seedream 5.0 和 Seedance 2.0 的差异编译专用 Prompt。
+
+这个 Skill 默认只输出提示词，不直接生成或编辑媒体。
+
+## 结构
 
 ```text
-image-prompt-optimizer/
+prompt-optimizer/
 ├── SKILL.md
-├── README.md
-├── LICENSE
-├── SOURCES.md
-├── agents/
-│   └── openai.yaml
+├── agents/openai.yaml
 ├── references/
+│   ├── reference-analysis.md
 │   ├── visual-language.md
-│   ├── evaluation.md
-│   ├── examples.md
 │   ├── model-gpt-image.md
-│   ├── model-midjourney.md
-│   ├── model-flux.md
-│   ├── model-nano-banana.md
-│   ├── model-stable-diffusion.md
-│   ├── model-ideogram.md
-│   ├── workflow-generation.md
-│   ├── workflow-editing.md
-│   ├── workflow-consistency.md
-│   ├── workflow-product.md
-│   └── workflow-typography.md
+│   ├── model-seedream-5.md
+│   ├── model-seedance-2.md
+│   ├── evaluation.md
+│   └── examples.md
 └── scripts/
     ├── install.sh
     └── validate.py
 ```
 
-## Install — Claude Code
+## 安装
 
-Project-scoped skills live under `.claude/skills/<name>/SKILL.md`.
-
-From this package directory:
+### Claude Code 项目级
 
 ```bash
-./scripts/install.sh claude /path/to/your/project
+./scripts/install.sh claude /path/to/project
 ```
 
-Or copy the folder manually to:
-
-```text
-YOUR_PROJECT/.claude/skills/image-prompt-optimizer/
-```
-
-Then start Claude Code in that project. The skill can be invoked explicitly as `/image-prompt-optimizer` and may also activate automatically when the request matches its description.
-
-## Install — Codex
-
-### User-wide
+### Codex 用户级
 
 ```bash
 ./scripts/install.sh codex-user
 ```
 
-This installs to:
-
-```text
-~/.agents/skills/image-prompt-optimizer/
-```
-
-### Project-scoped
+### Codex 项目级
 
 ```bash
-./scripts/install.sh codex-project /path/to/your/project
+./scripts/install.sh codex-project /path/to/project
 ```
 
-This installs to:
-
-```text
-YOUR_PROJECT/.agents/skills/image-prompt-optimizer/
-```
-
-Codex can invoke the skill explicitly through its skills UI/mention flow and may also activate it implicitly from the description.
-
-## Install — Hermes Agent
+### Hermes 用户级
 
 ```bash
 ./scripts/install.sh hermes
 ```
 
-This installs to:
+安装器不会覆盖已存在的 Skill 目录。
 
-```text
-~/.hermes/skills/creative/image-prompt-optimizer/
-```
-
-Start a new Hermes session, or refresh skill discovery according to your Hermes version. The skill is available as a slash-command-style skill and can also be selected automatically.
-
-## Validate
+## 校验
 
 ```bash
 python3 scripts/validate.py
 ```
 
-The validation script checks the Agent Skills naming/frontmatter basics, SKILL.md length, and referenced files.
+校验脚本只依赖 Python 标准库，检查 frontmatter、文件引用、过时模型名称和基础结构。
 
-## Example usage
-
-### Generic
+## 示例
 
 ```text
-优化成生图提示词：
-一个女生在东京深夜便利店门口吃冰淇淋，安静、有点疏离，真实摄影，不要赛博朋克。
+使用 $prompt-optimizer。
+图 1 参考人物，图 2 参考服装，视频 1 只参考动作与运镜。
+生成一段 10 秒雨夜天台写实短片，目标模型 Seedance 2.0。
 ```
-
-### Model-specific
 
 ```text
-/image-prompt-optimizer
-目标模型：Midjourney
-把这个概念优化成 16:9 的电影剧照感提示词：
-雨夜东京，一个人撑透明伞走过小巷，克制、写实，不要过度霓虹。
+使用 $prompt-optimizer，把这段参考视频里最有冲击力的瞬间转换成 GPT Image 海报主视觉提示词，不要文字。
 ```
-
-### Image edit
-
-```text
-Use the image-prompt-optimizer skill.
-把参考图的白天背景改成雨夜。人物的脸、衣服、姿势、构图完全不变。
-目标模型：GPT Image
-```
-
-### Multi-model
-
-```text
-把同一个产品广告 brief 分别编译成 GPT Image、Midjourney 和 FLUX 三个版本。
-```
-
-## Design choices
-
-The main `SKILL.md` is intentionally compact. Detailed visual vocabulary, model dialects, workflows, and examples live in `references/` and are loaded only when needed. This follows progressive-disclosure principles and keeps routine invocations efficient.
-
-Model-specific files avoid hard-coding volatile version numbers when not required. Update one adapter when a platform changes rather than rewriting the whole skill.

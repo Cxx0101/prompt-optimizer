@@ -1,67 +1,54 @@
-# Prompt Evaluation Rubric
+# Prompt Evaluation
 
-Use this for difficult prompts, prompt diagnosis, or before returning a high-stakes production prompt.
+输出前快速检查。重要问题优先修正，不需要向用户展示评分。
 
-Score each dimension 0–2.
+## 1. 意图一致性
 
-## 1. Intent fidelity
+- 最终交付物是用户要的图片或视频；
+- 核心创意没有被审美补全改变；
+- 用户要求避免的内容没有被重新加入。
 
-- 0: changes the concept;
-- 1: mostly preserved with drift;
-- 2: central idea and hard constraints preserved.
+## 2. 参考证据
 
-## 2. Subject clarity
+- 每份素材都有明确角色；
+- 主体、构图、风格、动作、运镜和声音没有来源冲突；
+- 不确定信息没有写成事实；
+- 水印、UI、压缩缺陷等未被无意复制。
 
-- 0: ambiguous focus;
-- 1: subject named but weakly controlled;
-- 2: subject/action/identity are visually clear.
+## 3. Anchor / Delta
 
-## 3. Spatial grammar
+- 保留锚点足够具体；
+- 变化对象、区域或时间段明确；
+- 同一内容没有同时被要求保持和重构；
+- 新内容有透视、比例、光影或时序融合要求。
 
-- 0: list of objects with no relationships;
-- 1: partial layout;
-- 2: foreground/background/placement/scale relationships are clear where needed.
+## 4. 生图质量
 
-## 4. Composition
+- 主体、动作、环境和空间关系清楚；
+- 构图、光线和风格内部一致；
+- 单张图聚焦一个主要时刻；
+- 文字逐字锁定并注明版式；
+- 没有无意义质量词和不支持参数。
 
-- 0: no framing guidance when important;
-- 1: generic framing;
-- 2: framing, viewpoint, crop, and negative space match purpose.
+## 5. 生视频质量
 
-## 5. Lighting/color coherence
+- 有明确开头、变化过程和结尾；
+- 动作包含起点、方向、作用对象、反馈和收势；
+- 主体运动与相机运动没有混淆；
+- 多镜头时长总和正确，转场有理由；
+- 人物、产品、场景和光线跨镜头连续；
+- 声音与动作 / 剪辑同步，不需要的声轨已明确排除。
 
-- 0: contradictory or decorative;
-- 1: plausible but generic;
-- 2: intentional light source, contrast, and palette.
+## 6. 模型适配
 
-## 6. Material/style specificity
+- GPT Image：清楚结构、引用图号、显式 Change / Preserve；
+- Seedream 5.0：简洁自然语言、参考关系直接、不过度堆词；
+- Seedance 2.0：素材角色明确、按时间写动作 / 运镜 / 声音、连续性可执行；
+- 未混入其他模型的 flags、权重或 Negative Prompt 模板。
 
-- 0: empty adjectives;
-- 1: some useful descriptors;
-- 2: material and medium choices are concrete and coherent.
+## 7. 可用性
 
-## 7. Model fit
-
-- 0: wrong/deprecated syntax or blind negative prompt;
-- 1: portable but not optimized;
-- 2: adapter-appropriate language and parameters.
-
-## 8. Constraint handling
-
-- 0: ignores preserve/text/count constraints;
-- 1: partially encoded;
-- 2: hard constraints are explicit and testable.
-
-## 9. Efficiency
-
-- 0: heavy keyword soup/repetition;
-- 1: some redundancy;
-- 2: nearly every phrase controls an output property.
-
-## 10. Generate-readiness
-
-- 0: requires major interpretation;
-- 1: usable with likely drift;
-- 2: can be pasted into the target model with minimal ambiguity.
-
-A strong production prompt should usually score at least 16/20 without relying on generic quality tags.
+- 用户能直接复制 Prompt；
+- 素材编号与实际输入顺序一致；
+- 只给必要说明；
+- 如果模型入口能力未知，使用自然语言而不是虚构语法。

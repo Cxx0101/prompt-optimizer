@@ -1,6 +1,6 @@
 interface:
-  display_name: "Image Prompt Optimizer"
-  short_description: "Compile rough visual ideas into model-ready image prompts"
-  default_prompt: "Optimize this image idea into a production-ready prompt while preserving my intent."
+  display_name: "Prompt Optimizer"
+  short_description: "Analyze references into image and video prompts"
+  default_prompt: "Use $prompt-optimizer to turn my reference image, video, or brief into a model-ready prompt."
 policy:
   allow_implicit_invocation: true

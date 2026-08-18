@@ -1,165 +1,113 @@
-# Visual Language Reference
+# Visual and Motion Language
 
-Use this reference to translate vague creative intent into controllable visual instructions. Select only the vocabulary that materially affects the image.
+只在需要补充视觉或运动控制时读取。选择少量真正影响结果的描述，不要把整张清单塞进 Prompt。
 
-## Composition
+## 构图与景别
 
-### Shot size
+- extreme close-up / 特写 / 中近景 / 中景 / 全身 / 全景 / 大远景
+- eye-level / low-angle / high-angle / top-down / ground-level
+- centered / symmetrical / rule of thirds / strong negative space / foreground framing
+- subject on the left with usable copy space on the right
 
-- Extreme close-up: one detail dominates; useful for texture, eyes, product mechanisms.
-- Close-up: face or object detail with limited context.
-- Medium close-up: head/shoulders or upper product context.
-- Medium shot: body from roughly waist/chest up; balances subject and environment.
-- Full shot: entire person/object visible with readable stance.
-- Wide shot: environment becomes narratively important.
-- Establishing shot: location and spatial context dominate.
+空间关系要具体：谁在前景、谁在右后方、谁遮挡谁、主体占画面多少。
 
-### Camera position and viewpoint
+## 视角与透视
 
-- eye level — neutral, observational;
-- low angle — subject dominance, monumentality;
-- high angle — vulnerability, overview, graphic layout;
-- top-down / overhead — geometric organization, food/product flat lay;
-- three-quarter angle — dimensional product/object readability;
-- profile — graphic silhouette and directional motion;
-- over-the-shoulder — narrative point of view;
-- centered frontal — formal, iconic, symmetrical;
-- off-center thirds — natural editorial balance;
-- negative space — room for copy, atmosphere, or isolation.
+- wide-angle spatial expansion：空间纵深明显，近大远小
+- natural perspective：接近日常观察的自然比例
+- telephoto compression：背景被拉近，空间压缩
+- orthographic / front-facing：正面、结构清楚、弱透视
 
-### Perspective and depth
+不要用精确毫米数承诺无法验证的光学结果；焦段只作为视觉倾向。
 
-Use explicit spatial cues:
+## 光线
 
-- foreground obstruction or framing element;
-- layered foreground / midground / background;
-- converging lines;
-- atmospheric haze;
-- compression vs exaggerated depth;
-- shallow focus vs deep focus;
-- clean silhouette separation.
+描述光源方向、面积、软硬和色温：
 
-Avoid "dynamic perspective" when a specific viewpoint would be clearer.
+- large soft window light from camera-left
+- hard late-afternoon sunlight with long directional shadows
+- cool overhead ambient light with a warm practical lamp in frame
+- controlled studio rim light revealing the product silhouette
 
-## Camera and Optics
+光影必须一致：主光方向、投影、反射和环境色不能互相矛盾。
 
-Lens language is useful when it communicates perspective:
+## 色彩
 
-- 20–28mm equivalent: expansive environment, stronger foreground/background size difference, edge distortion risk.
-- 35mm: documentary/environmental, natural sense of space.
-- 50mm: neutral perspective, moderate context.
-- 85–105mm: portrait/product isolation, compressed background, flattering facial proportions.
-- 135mm+: compressed layers, distant-feeling background, strong isolation.
+用关系而非色词堆叠：
 
-Aperture language controls depth only approximately in generative models:
+- warm neutrals with one muted cobalt accent
+- low-saturation blue-gray environment against natural skin tones
+- deep green product on a pale stone background with restrained contrast
 
-- wide aperture / shallow depth: subject separation, soft background;
-- moderate depth: face/object sharp with readable context;
-- deep focus: architecture, landscape, product layouts.
+说明主色、辅色、点缀色和饱和度。避免同时要求互斥的冷暖或高低饱和。
 
-Use "tack-sharp subject with controlled background falloff" when a numeric aperture would add false precision.
+## 材质与真实感
 
-## Lighting
+写材料如何响应光：
 
-Describe four dimensions:
+- brushed aluminum with narrow anisotropic highlights
+- translucent fabric with soft edge light
+- uncoated paper with visible fibers and slight ink absorption
+- worn leather with small creases rather than glossy plastic smoothness
 
-1. **Source** — window, sun, skylight, softbox, practical lamp, neon sign, candle, screen, bounce.
-2. **Direction** — front, side, three-quarter, back, overhead, underlight.
-3. **Quality** — hard, soft, diffused, specular, dappled, volumetric.
-4. **Contrast/color** — low/high contrast; warm/cool; mixed color temperatures.
+写实感来自自然纹理、细小不完美、可信接触阴影和正确尺度，不来自“8K”词汇。
 
-Useful patterns:
+## 主体动作
 
-- soft north-window side light — quiet editorial portrait;
-- large diffused overhead source — clean product/beauty;
-- hard late-afternoon side light — defined texture and long shadows;
-- warm practical interior + cool ambient exterior — cinematic color separation;
-- rim/backlight through mist — silhouette separation and atmosphere;
-- overcast skylight — even skin/material detail with low contrast.
+可执行动作包含：
 
-Do not stack every lighting term. Choose a coherent setup.
+```text
+主体 + 起始状态 + 动作方向 + 速度 / 力度 + 作用对象 + 物理反馈 + 结束状态
+```
 
-## Color
+示例：人物先握紧玻璃瓶，手腕快速向左旋开瓶盖；瓶盖脱离时手指略微回弹，最后把瓶盖停在瓶口上方。
 
-Specify color as a system, not a list:
+## 相机运动
 
-- dominant hue + accent;
-- warm/cool relationship;
-- saturation level;
-- contrast level;
-- background/subject separation;
-- neutral material balance.
+- slow push-in：缓慢推进，强化注意力
+- pull-back reveal：后拉揭示环境
+- lateral tracking：横向跟拍，保持主体相对位置
+- orbit：围绕主体转动，适合展示形体
+- pan / tilt：原地摇摄 / 俯仰
+- handheld follow：轻微手持跟随，强调临场感
+- locked-off：固定机位，强调动作本身
 
-Examples:
+一个短镜头优先一个主要运动。若需要组合，写清先后，例如“先固定两秒，随后缓慢推进”。
 
-- muted slate blue and warm skin tones with small amber practical-light accents;
-- monochrome off-white product set with a single cobalt blue object;
-- low-saturation earth palette, deep blacks, restrained highlights.
+## 速度与时间
 
-For brand work, associate exact colors with exact objects rather than giving a detached palette.
+- real-time natural motion
+- gradual acceleration / sudden stop
+- brief slow motion at the moment of impact, then return to normal speed
+- hold the final frame for one second
 
-## Materials and Texture
+不要把整段视频都写成慢动作，除非用户明确要求。
 
-Translate abstract quality into surfaces:
+## 转场
 
-- skin: natural pores, subtle tonal variation, soft specular highlights, fine facial hair;
-- glass: refraction, edge highlights, controlled reflections, thickness;
-- brushed metal: directional micro-scratches, soft anisotropic reflections;
-- polished metal: crisp environment reflections and clean highlight rolloff;
-- ceramic: matte or glazed, small surface irregularities;
-- paper: tooth, fibers, folds, edge wear;
-- fabric: weave, drape, nap, sheen, wrinkles appropriate to material;
-- leather: grain, creases, edge finishing;
-- wood: grain direction, pore size, finish, wear;
-- liquid: viscosity, meniscus, droplets, condensation, caustics when appropriate.
+- hard cut：直接切换
+- match cut：以相似形状或动作匹配切换
+- whip-pan transition：甩镜转场
+- dissolve：柔和时间过渡
+- occlusion transition：由前景遮挡完成转场
 
-Avoid "ultra-detailed texture" if the material itself is unspecified.
+转场必须有画面依据。简单单镜头不要添加转场。
 
-## Realism Without the Plastic Look
+## 声音
 
-Prefer:
+用声音事件而非笼统“电影级音效”：
 
-- plausible asymmetry;
-- natural skin texture;
-- tiny garment wrinkles;
-- imperfect hair strands;
-- realistic contact shadows;
-- subtle lens falloff;
-- restrained sharpening;
-- believable highlight rolloff;
-- environment-consistent reflections.
+- close, dry footsteps synchronized with each landing
+- distant traffic under a quiet room tone
+- fabric rustle and a soft metallic click at the exact hand movement
+- no music, no dialogue, only natural environmental sound
 
-Avoid combining "perfect", "flawless", "hyper-detailed", "8K", "HDR", and "cinematic" unless the task truly needs a polished synthetic look.
+台词注明说话者、原文、语气和时间点。
 
-## Motion
+## 抽象方向的落地
 
-State what is moving and how it is rendered:
-
-- frozen action with crisp subject;
-- subtle motion blur only on moving hands/vehicle/background;
-- panning shot with sharp subject and streaked environment;
-- wind-driven fabric/hair;
-- splash/falling particles with physically consistent direction.
-
-## Illustration and 3D
-
-Instead of naming only a style, specify:
-
-- line quality: clean, rough, inked, pencil, vector, etched;
-- shape language: geometric, rounded, angular, organic;
-- shading: flat, cel, painterly, gradient, physically based;
-- material model: clay, paper cut, plastic, glass, metal, fabric;
-- edge treatment: crisp, soft, hand-cut, beveled;
-- dimensionality: flat graphic, shallow relief, isometric 3D, full CGI;
-- background: white void, textured paper, complete environment.
-
-## Mood as Visual Direction
-
-Translate mood into choices:
-
-- intimate → close framing, low contrast, warm practical light, shallow depth;
-- lonely → negative space, small subject, cool palette, sparse environment;
-- tense → off-balance framing, hard side light, compressed dark values;
-- playful → rounded shapes, brighter accents, open spacing, lively gesture;
-- luxurious → restrained palette, precise surfaces, controlled reflections, clean negative space;
-- documentary → available light, imperfect framing, realistic environment, low polish.
+- 高级：克制留白、清晰层级、材质准确、受控高光、有限色板
+- 电影感：明确景别、机位、光源、运动、前后景和节奏
+- 治愈：低冲突动作、柔和色温、稳定镜头、舒缓声音与结尾停顿
+- 紧张：压缩空间、视线冲突、逐渐加速、短暂停顿和声音留白
+- 有力量：低机位、明确受力、强轮廓、动作反作用与干净收势

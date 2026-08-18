@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SKILL_NAME="image-prompt-optimizer"
+SKILL_NAME="prompt-optimizer"
 SRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 usage() {
@@ -13,10 +13,10 @@ Usage:
   ./scripts/install.sh hermes
 
 Targets:
-  Claude Code project: <project>/.claude/skills/image-prompt-optimizer
-  Codex project:       <project>/.agents/skills/image-prompt-optimizer
-  Codex user:          ~/.agents/skills/image-prompt-optimizer
-  Hermes user:         ~/.hermes/skills/creative/image-prompt-optimizer
+  Claude Code project: <project>/.claude/skills/prompt-optimizer
+  Codex project:       <project>/.agents/skills/prompt-optimizer
+  Codex user:          ~/.agents/skills/prompt-optimizer
+  Hermes user:         ~/.hermes/skills/creative/prompt-optimizer
 
 The installer refuses to overwrite an existing skill directory.
 USAGE
@@ -28,8 +28,12 @@ copy_skill() {
     echo "Refusing to overwrite existing path: $target" >&2
     exit 2
   fi
-  mkdir -p "$(dirname "$target")"
-  cp -R "$SRC_DIR" "$target"
+
+  mkdir -p "$target"
+  cp "$SRC_DIR/SKILL.md" "$target/SKILL.md"
+  cp -R "$SRC_DIR/agents" "$target/agents"
+  cp -R "$SRC_DIR/references" "$target/references"
+
   echo "Installed to: $target"
 }
 
